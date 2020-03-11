@@ -1,4 +1,4 @@
-package uk.co.santander.induction.manager.controller;
+package uk.co.santander.induction.manager.controller.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

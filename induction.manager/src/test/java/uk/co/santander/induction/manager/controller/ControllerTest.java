@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.co.santander.induction.manager.Application;
+import uk.co.santander.induction.manager.controller.model.PaymentRequest;
 import uk.co.santander.induction.manager.service.MyService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -49,15 +50,11 @@ class ControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.paymentsHubId", notNullValue()))
                 .andExpect(jsonPath("$.status", equalTo("pending")));
-
     }
-
 
     @Test
     void shouldReturnServiceUnavailableWhenException() throws Exception {
         doThrow(new RuntimeException()).when(myService).expectedLogicBasedOnUserStory();
-
-        verify(myService).expectedLogicBasedOnUserStory();
 
         String paymentRequest = objectMapper.writeValueAsString(PaymentRequest.builder()
                 .origen("origen")
@@ -70,6 +67,6 @@ class ControllerTest {
                 .content(paymentRequest))
                 .andExpect(status().isServiceUnavailable());
 
+        verify(myService).expectedLogicBasedOnUserStory();
     }
-
 }
