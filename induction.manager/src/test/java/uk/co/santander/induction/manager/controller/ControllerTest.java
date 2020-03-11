@@ -41,9 +41,10 @@ class ControllerTest {
         mockMvc.perform(post("/miPago")
                 .contentType(APPLICATION_JSON)
                 .content(body))
-                .andExpect(status().isCreated());
-//                .andExpect(jsonPath("$.paymentsHubId", notNullValue()))
-//                .andExpect(jsonPath("$.status", equalTo("pending")));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.paymentsHubId", notNullValue()))
+                .andExpect(jsonPath("$.status", equalTo("pending")));
+
     }
 
 }
