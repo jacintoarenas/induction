@@ -10,9 +10,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.co.santander.induction.manager.Application;
+import uk.co.santander.induction.manager.service.MyService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,6 +31,9 @@ class ControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @MockBean
+    private MyService myService;
+
     @Test
     void shouldAllowPostPayment() throws Exception {
         PaymentRequest paymentRequest = PaymentRequest.builder()
@@ -44,6 +49,26 @@ class ControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.paymentsHubId", notNullValue()))
                 .andExpect(jsonPath("$.status", equalTo("pending")));
+
+    }
+
+
+    @Test
+    void shouldReturnServiceUnavailableWhenException() throws Exception {
+        doThrow(new RuntimeException()).when(myService).expectedLogicBasedOnUserStory();
+
+        verify(myService).expectedLogicBasedOnUserStory();
+
+        String paymentRequest = objectMapper.writeValueAsString(PaymentRequest.builder()
+                .origen("origen")
+                .destino("destino")
+                .reference("miReferencia")
+                .cantidad(10.0)
+                .build());
+        mockMvc.perform(post("/miPago")
+                .contentType(APPLICATION_JSON)
+                .content(paymentRequest))
+                .andExpect(status().isServiceUnavailable());
 
     }
 
