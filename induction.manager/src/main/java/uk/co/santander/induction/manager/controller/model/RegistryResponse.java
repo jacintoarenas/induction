@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentResponseStub {
+public class RegistryResponse {
     @NotNull
     String paymentsHubId;
     String status;

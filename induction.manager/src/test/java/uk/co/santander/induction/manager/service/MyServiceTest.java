@@ -25,7 +25,7 @@ import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import uk.co.santander.induction.manager.Application;
-import uk.co.santander.induction.manager.controller.model.PaymentResponseStub;
+import uk.co.santander.induction.manager.controller.model.RegistryResponse;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -62,15 +62,13 @@ class MyServiceTest {
     @Test
     void shouldCallRegistry() throws JsonProcessingException {
         final String targetUrl = "/miPago";
-        final PaymentResponseStub paymentResponseStub = PaymentResponseStub.builder()
+        final RegistryResponse registryResponse = RegistryResponse.builder()
                 .paymentsHubId(UUID.randomUUID().toString()).status("PENDING").build();
 
         wiremock.stubFor(post(urlEqualTo(targetUrl))
-                //.withRequestBody()  // debtor creditor amount
+                //.withRequestBody()  // debtor creditor ammount
                 .willReturn(new ResponseDefinitionBuilder().withHeader("Content-Type", APPLICATION_JSON.toString())
-                        .withBody(objectMapper.writeValueAsString(paymentResponseStub)).withStatus(201)));
-
-
+                        .withBody(objectMapper.writeValueAsString(registryResponse)).withStatus(201)));
 
         myService.expectedLogicBasedOnUserStory();
 

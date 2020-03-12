@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 import uk.co.santander.induction.manager.controller.model.PaymentRequest;
-import uk.co.santander.induction.manager.controller.model.PaymentResponseStub;
+import uk.co.santander.induction.manager.controller.model.RegistryResponse;
 
 @Service
 @Slf4j
@@ -15,15 +15,15 @@ public class MyService {
 
     String base = null;
 
-    public PaymentResponseStub expectedLogicBasedOnUserStory() {
+    public RegistryResponse expectedLogicBasedOnUserStory() {
         final HttpEntity<PaymentRequest> entity = new HttpEntity<PaymentRequest>(buildPaymentRequest());
-        final ResponseEntity<PaymentResponseStub> re = new RestTemplate().postForEntity(base + "/miPago", entity,
-                PaymentResponseStub.class);
+        final ResponseEntity<RegistryResponse> registryResponse = new RestTemplate().postForEntity(base + "/miPago", entity,
+                RegistryResponse.class);
 
-        log.info(re.getBody().getPaymentsHubId());
-        log.info(re.getBody().getStatus());
+        log.info(registryResponse.getBody().getPaymentsHubId());
+        log.info(registryResponse.getBody().getStatus());
 
-        return re.getBody();
+        return registryResponse.getBody();
     }
 
     public void setBase(final String string) {
