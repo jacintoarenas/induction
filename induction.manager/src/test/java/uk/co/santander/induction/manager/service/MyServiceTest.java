@@ -25,6 +25,7 @@ import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import uk.co.santander.induction.manager.Application;
+import uk.co.santander.induction.manager.controller.model.PaymentRequest;
 import uk.co.santander.induction.manager.controller.model.RegistryResponse;
 
 @ExtendWith(SpringExtension.class)
@@ -66,12 +67,15 @@ class MyServiceTest {
                 .paymentsHubId(UUID.randomUUID().toString()).status("PENDING").build();
 
         wiremock.stubFor(post(urlEqualTo(targetUrl))
-                //.withRequestBody()  // debtor creditor ammount
+                //.withRequestBody()  //TODO debtor creditor ammount
                 .willReturn(new ResponseDefinitionBuilder().withHeader("Content-Type", APPLICATION_JSON.toString())
                         .withBody(objectMapper.writeValueAsString(registryResponse)).withStatus(201)));
 
-        myService.expectedLogicBasedOnUserStory();
+        PaymentRequest paymentRequest = null; //TODO build your payment request
+
+        RegistryResponse actualRegistryResponse = myService.expectedLogicBasedOnUserStory(paymentRequest);
 
         WireMock.verify(1, postRequestedFor(urlEqualTo(targetUrl)));
+        //TODO algun assertion mas para asegurar que devuelve exactamente la respuesta de registry???? actualRegistryResponse
     }
 }

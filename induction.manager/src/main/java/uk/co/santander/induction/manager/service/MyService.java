@@ -15,7 +15,7 @@ public class MyService {
 
     String base = null;
 
-    public RegistryResponse expectedLogicBasedOnUserStory() {
+    public RegistryResponse expectedLogicBasedOnUserStory(PaymentRequest paymentRequest) {
         final HttpEntity<PaymentRequest> entity = new HttpEntity<PaymentRequest>(buildPaymentRequest());
         final ResponseEntity<RegistryResponse> registryResponse = new RestTemplate().postForEntity(base + "/miPago", entity,
                 RegistryResponse.class);

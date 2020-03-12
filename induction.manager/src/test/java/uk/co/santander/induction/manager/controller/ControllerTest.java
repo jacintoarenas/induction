@@ -54,19 +54,21 @@ class ControllerTest {
 
     @Test
     void shouldReturnServiceUnavailableWhenException() throws Exception {
-        doThrow(new RuntimeException()).when(myService).expectedLogicBasedOnUserStory();
+        doThrow(new RuntimeException()).when(myService).expectedLogicBasedOnUserStory(any());
 
-        String paymentRequest = objectMapper.writeValueAsString(PaymentRequest.builder()
+        PaymentRequest paymentRequest = PaymentRequest.builder()
                 .origen("origen")
                 .destino("destino")
                 .reference("miReferencia")
                 .cantidad(10.0)
-                .build());
+                .build();
+
+        String paymentRequestAsString = objectMapper.writeValueAsString(paymentRequest);
         mockMvc.perform(post("/miPago")
                 .contentType(APPLICATION_JSON)
-                .content(paymentRequest))
+                .content(paymentRequestAsString))
                 .andExpect(status().isServiceUnavailable());
 
-        verify(myService).expectedLogicBasedOnUserStory();
+        verify(myService).expectedLogicBasedOnUserStory(paymentRequest);
     }
 }
