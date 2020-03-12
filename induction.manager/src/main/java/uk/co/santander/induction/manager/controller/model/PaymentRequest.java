@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PaymentRequest {
-    String origen;
-    String destino;
-    String reference;
-    double cantidad;
 
+    private String origen;
+    private String destino;
+    private String reference;
+    private double cantidad;
 }

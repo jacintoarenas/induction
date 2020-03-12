@@ -8,7 +8,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 public class PaymentResponse {
+
     @NotNull
-    String paymentsHubId;
-    String status;
+    private String paymentsHubId;
+
+    private String status;
 }

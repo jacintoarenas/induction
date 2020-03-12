@@ -57,8 +57,8 @@ class ControllerTest {
         doThrow(new RuntimeException()).when(myService).expectedLogicBasedOnUserStory(any());
 
         PaymentRequest paymentRequest = PaymentRequest.builder()
-                .origen("origen")
-                .destino("destino")
+                .origen("debtor")
+                .destino("creditor")
                 .reference("miReferencia")
                 .cantidad(10.0)
                 .build();

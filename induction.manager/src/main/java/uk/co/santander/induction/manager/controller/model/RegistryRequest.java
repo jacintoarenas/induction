@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
-@Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class RegistryResponse {
+@NoArgsConstructor
+@Data
+public class RegistryRequest {
 
-    @NotNull
-    private String paymentsHubId;
-    private String status;
+    private String debtor;
+    private String creditor;
+    private double amount;
 }
