@@ -29,10 +29,7 @@ public class MyServiceStubTest {
 
     @Autowired
     private MyService myService;
-
-    @Autowired
-    private ConfigValues values;
-
+    
     @Test
     public void happyPath() throws Exception {
         final PaymentRequest givenPaymentRequest = PaymentRequest.builder()
