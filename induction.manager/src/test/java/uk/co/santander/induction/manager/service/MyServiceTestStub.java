@@ -12,9 +12,6 @@ import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.co.santander.induction.manager.controller.model.PaymentRequest;
-import uk.co.santander.induction.manager.controller.model.RegistryResponse;
-
-import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,7 +37,7 @@ public class MyServiceTestStub {
                 .cantidad(1.1)
                 .build();
 
-        RegistryResponse actualRegistryResponse = myService.expectedLogicBasedOnUserStory(givenPaymentRequest);
+        myService.expectedLogicBasedOnUserStory(givenPaymentRequest);
     }
 
 }
