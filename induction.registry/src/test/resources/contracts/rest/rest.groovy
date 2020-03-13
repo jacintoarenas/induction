@@ -14,14 +14,14 @@ import org.springframework.cloud.contract.spec.Contract
             }
             body([
                     debtor: $(producer('debtor'), consumer(anyNonBlankString())),
-                    creditor: 'creditor',
-                    amount: 1.1
+                    creditor: $(producer('creditor'), consumer(anyNonBlankString())),
+                    amount: $(anyNumber())
             ])
         }
         response {
             status CREATED()
             headers {
-                contentType applicationJsonUtf8()
+                contentType applicationJson()
             }
             body([
 

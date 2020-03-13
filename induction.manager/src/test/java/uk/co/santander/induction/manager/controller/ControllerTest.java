@@ -43,10 +43,9 @@ class ControllerTest {
                 .reference("miReferencia")
                 .cantidad(10.0)
                 .build();
-        String body = objectMapper.writeValueAsString(paymentRequest);
         mockMvc.perform(post("/miPago")
                 .contentType(APPLICATION_JSON)
-                .content(body))
+                .content(objectMapper.writeValueAsString(paymentRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.paymentsHubId", notNullValue()))
                 .andExpect(jsonPath("$.status", equalTo("pending")));

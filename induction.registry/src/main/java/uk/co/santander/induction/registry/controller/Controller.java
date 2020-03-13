@@ -12,14 +12,12 @@ import uk.co.santander.induction.registry.controller.model.PaymentResponse;
 
 import java.util.UUID;
 
-//import uk.co.santander.induction.registry.service.MyService;
-
 @RestController
 @AllArgsConstructor
 @Slf4j
 public class Controller {
 
-    @PostMapping(path = "/miPago", produces = "application/json;charset=UTF-8")
+    @PostMapping(path = "/miPago", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public PaymentResponse miPost(@RequestBody PaymentRequest paymentRequest){
         return PaymentResponse
@@ -28,12 +26,4 @@ public class Controller {
                 .status("PENDING")
                 .build();
     }
-
-    /*
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(SERVICE_UNAVAILABLE)
-    public void handleUnexpectedException(Exception e) {
-        log.info("Unexpected error", e);
-    }
-     */
 }

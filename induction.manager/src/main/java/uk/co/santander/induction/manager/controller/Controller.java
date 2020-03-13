@@ -19,7 +19,7 @@ public class Controller {
 
     @PostMapping("/miPago")
     @ResponseStatus(HttpStatus.CREATED)
-    public PaymentResponse miPost(@RequestBody PaymentRequest paymentRequest){
+    public PaymentResponse miPost(@RequestBody PaymentRequest paymentRequest) {
         myService.expectedLogicBasedOnUserStory(paymentRequest);
         return PaymentResponse
                 .builder()
