@@ -29,7 +29,7 @@ public class MyServiceStubTest {
 
     @Autowired
     private MyService myService;
-    
+
     @Test
     public void happyPath() throws Exception {
         final PaymentRequest givenPaymentRequest = PaymentRequest.builder()
